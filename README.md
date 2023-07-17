@@ -1,0 +1,2 @@
+# Minimal-Overlap-Observed-in-Cell-Types-Associated-with-Parkinsons-Disease-GWAS
+This repository contains a M.Sc. Neurosciences thesis paper called "Minimal Overlap Observed in Cell Types Associated with Parkinson's Disease GWAS", which describes a "GWAS - Cell Type Explorer Tool" that uses FUMA analysis of GWAS summary statistics to create a Shiny application that compares and contrasts multiple GWAS for the same trait. 
