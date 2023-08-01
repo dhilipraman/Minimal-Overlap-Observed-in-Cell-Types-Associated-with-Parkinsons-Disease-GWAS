@@ -1,0 +1,120 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww20560\viewh13740\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Created on July 2nd, 2023\
+Completed on July 19th, 2023\
+\
+Dhilip Raman\
+Complex Trait Genetics (CTG), Center for Neurogenomics and Clinical Research (CNCR)\
+\
+\
+GWAS Explorer for Parkinson\'92s Disease:\
+This README file outlines the processing pipeline for comparing multiple Parkinson\'92s Disease GWAS, using the GWAS analysis tools available on the FUMA platform (fuma.ctglab.nl). FUMA\'92s analysis of GWAS identifies significant SNPs, genomic risk loci, genes nearest to significant SNPs, and cell types associated with the trait. \
+\
+Therefore, the goal of this GWAS comparison is to identify which significant SNPs, genomic risk loci, nearest genes, and associated cell types are prioritized by multiple GWAS for the same trait. This allows the user to see 1) which results are prioritized repeatedly by multiple GWAS and are considered \'93overlapping\'94 results, with greater validity than \'93non-overlapping\'94 results, and 2) how concordant the results are for a trait. We use the term \'93valid\'94 to indicate that a result has the strongest likelihood of being related to the root cause of the disease; \'93valid\'94 does not indicate that a result has the strongest statistical association. \
+For example:\
+\
+1) For Parkinson\'92s Disease, of the genes nearest to significant SNPs, the gene SNCA emerges from the FUMA analysis of 4 different Parkinson\'92s Disease GWAS. The gene SNCA is considered in our study to be the most valid association of a gene with the Parkinson\'92s Disease trait, and this is heavily supported by previous in vivo studies of Parkinson\'92s Disease. The gene RP11-115D19.1 is identified by 3 different GWAS of Parkinson\'92s Disease; therefore the gene RP11-115D19.1 is considered to have a less \'93valid\'94 association with Parkinson\'92s Disease than SNCA, but is nonetheless considered to be a valid association, especially when compared to genes that are only identified by 1 GWAS and not multiple GWAS. \
+\
+2) For Parkinson\'92s Disease (PD), no cell types were identified by more than 1 GWAS. Therefore, PD has no concordant association with cell types, in our analysis. However, 9 genes were identified by more than 1 GWAS, which we can also phrase as \'93there were 9 overlapping genes.\'94 Therefore, the Parkinson\'92s Disease Trait is shown to have a concordant identification of genes, but not a concordant identification of cell types. Our interpretation of this in our study is that PD GWAS signal associates better with genes than with cell types, either because of an underlying nature of the pathology of PD which we do not know about, or because the statistical architecture of FUMA analysis is better at identifying genes associated with a trait than cell types associated with a trait. It is very likely that both of these reasons are true, and both reasons contribute in part to our results for Parkinson\'92s Disease.  \
+\
+\
+\
+\
+There are 5 steps in our pipeline for comparing multiple GWAS for the same trait. These 5 steps are:\
+Step 1) Pre-processing of raw GWAS summary statistics files for input into FUMA\'92s SNP2GENE tool,\
+Step 2) Running processed GWAS summary statistics files in FUMA\'92s SNP2GENE tool,\
+Step 3) Running SNP2GENE results in FUMA\'92s Cell Type tool, \
+Step 4) Merging results for multiple GWAS into master files, which contain the results for all GWAS in your analysis,\
+Step 5) Running our RShiny application which visualizes the results for all GWAS using the master files from the previous step. \
+\
+\
+\
+For our study, we have 3 R scripts associated with this pipeline:\
+The first R script \'93Pre-Processing_for_SNP2GENE.R\'94 performs the pre-processing described in Step 1 of our pipeline. \
+Step 2 is performed entirely in FUMA\'92s SNP2GENE tool and requires no script. \
+Step 3 is performed entirely in FUMA\'92s Cell Type tool and requires no script. \
+The second R script \'93Merging_FUMA_Results.R\'94 merges the results for multiple GWAS, as described in Step 4 of our pipeline.\
+The third R script \'93RShiny_GWAS_Explorer.R\'94 runs the RShiny application to visualize results for multiple GWAS, as described in Step 5 of our pipeline. \
+\
+\
+\
+\
+The following is a description of each step of the pipeline in detail.\
+\
+Step 1) Pre-processing of raw GWAS summary statistics:\
+In order to submit a GWAS summary statistics file to SNP2GENE, there must be a \'93rsID\'94 column in the datafile, or alternatively, a \'93SNP\'94 name column, a \'93chromosome\'94 column stating which chromosome the SNP is in, and a \'93position\'94 column stating the location of the SNP. All summary statistics files must also contain a \'93P-value\'94 column which states the p-value, or significance, of the SNP in relation to the GWAS trait. \
+\
+All summary statistics used in this study contain this information, but the column names do not match SNP2GENE requirements. Additionally, some summary statistics files contain \'93uniqID\'94 columns which must be separated to create \'93SNP\'94 name, \'93chromosome\'94, and \'93position\'94 columns. \
+\
+\
+\
+Step 2) SNP2GENE job parameters:\
+Pre-processed summary statistics files are submitted in SNP2GENE jobs. The parameters used for each SNP2GENE job submitted for this study are in the folder called \'93SNP2GENE_Job_Parameters\'94. In this folder, there are 4 README files containing the SNP2GENE job parameters for each of the 4 GWAS used in this study. \
+\
+The 4 GWAS used in this study are:\
+\
+Nalls et al (2019)\
+Blauwendraat et al (2019)\
+Pankratz et al (2012)\
+Simon et al (2009)\
+\
+\
+For more information on how SNP2GENE identifies significant SNPs, genomic risk loci, and genes associated with a GWAS trait, refer to the \'93Tutorial\'94 on the FUMA platform (fuma.ctglab.nl).\
+\
+\
+\
+Step 3) Cell Type job parameters:\
+Once SNP2GENE jobs are completed, the SNP2GENE results can be submitted into FUMA\'92s Cell Type tool on the FUMA platform itself. The parameters used for each Cell Type job submitted for this study are in the folder called \'93Cell_Type_Job_Parameters\'94. In this folder, there are 4 README files containing the Cell Type job parameters for each of the 4 GWAS used in this study. \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+For more information on how Cell Type identifies cell types associated with a GWAS trait, refer to the \'93Tutorial\'94 on the FUMA platform (fuma.ctglab.nl).\
+\
+\
+Step 4) Merging results for multiple GWAS:\
+In this script, SNP2GENE and Cell Type results for all 4 GWAS are merged. Additionally, once all files are merged, the name of the GWAS from which the row originates is added in a new column called \'93GWAS\'94. \
+\
+For each GWAS, there are 3 files from the downloaded SNP2GENE results which are selected, and 1 file from the downloaded Cell Type results which is selected.\
+For SNP2GENE, \'93GenomicRiskLoci.txt\'94, \'93IndSigSNPs.txt\'94, and \'93snps.txt\'94 is selected.\
+For Cell Type, \'93magma_celltype_step1.txt\'94 is selected. \
+\
+In this script, \'93magma_celltype_step1.txt\'94 files for each GWAS are merged into 1 file containing all cell types called \'93All_CellTypes.txt\'94 and the column \'93GWAS\'94 is added. Next, \'93GenomicRiskLoci.txt\'94 files for each GWAS are merged into 1 file containing all genomic risk loci called \'93All_Genomic_Loci.txt\'94 and the column \'93GWAS\'94 is added. Next, \'93IndSigSNPs.txt\'94 for each GWAS are merged into 1 file containing all independent significant SNPs called \'93AllIndSNPs.txt\'94 and the column \'93GWAS\'94 is added. Last, \'93snps.txt\'94 for each GWAS are merged into 1 file containing all candidate SNPs called \'93All_SNPs.txt\'94 and the column \'93GWAS\'94 is added.\
+\
+These master files containing results from all 4 GWAS are used for visualization with the RShiny app in Step 5 of our pipeline. \
+\
+\
+\
+\
+Step 5) RShiny App to Visualize GWAS Comparison\
+\
+In this script, our merged data files from Step 4 are visualized in an RShiny app. There are 5 steps in this script.\
+\
+	Step 1) Load all .txt files from Step 4 into dataframes containing the data to be visualized. \
+	Step 2) Reshape these data frames for use in the upset plots of our Shiny app. \
+	Step 3) Reshape the cell types dataframe for use in the barplot of our Shiny app. \
+	Step 4) Create a list containing the names of all GWAS used. \
+	Step 5) Run the Shiny app, which contains both a UI (front-end) and server (back-end). \
+\
+\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
